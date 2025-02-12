@@ -11,4 +11,6 @@ jq '.scripts["test:watch"]="jest --watch --maxWorkers=25%"' package.json > packa
 
 # git clone --depth 1 git@github.com:faelribeiro22/scaffolder-files.git
 
-git archive --remote=<git@github.com:faelribeiro22/scaffolder-files.git> HEAD:path/to/directory/ filename | tar -t
+#git archive --remote=<git@github.com:faelribeiro22/scaffolder-files.git> HEAD:path/to/directory/ filename | tar -t
+
+git archive --remote=<git@github.com:faelribeiro22/scaffolder-files.git> | tar -t --exclude="*/*" | grep "/"
