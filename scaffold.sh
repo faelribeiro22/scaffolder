@@ -3,6 +3,7 @@ version="1.0"
 #validate that the user passed the parameter
 npm install --save-dev husky @testing-library/react @testing-library/dom @types/react @types/react-dom jest plop
 npm install --save-dev --save-exact prettier
+curl -L -o /usr/bin/jq.exe https://github.com/stedolan/jq/releases/latest/download/jq-win64.exe
 
 jq '.scripts["test:ci"] = "jest --runInBand"' package.json > package.json
 jq '.scripts["generate"]="npx plop --plopfile generators/plopfile.js"' package.json > package.json
