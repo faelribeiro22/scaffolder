@@ -2,7 +2,7 @@
 version="1.0"
 npm install --save-dev husky @testing-library/react @testing-library/dom @types/react @types/react-dom jest plop
 npm install --save-dev --save-exact prettier
-git clone --depth 1 https://github.com/nome-do-usuario/nome-do-repositorio.git
+git clone --depth 1 https://github.com/faelribeiro22/scaffolder-files
 
 # Define os scripts que você deseja adicionar
 declare -A scripts=(
@@ -36,6 +36,7 @@ itens=(
   "scaffolder-files/.prettierrc"
   "scaffolder-files/eslint.config.mjs"
   "scaffolder-files/eslint.config.mjs"
+  "scaffolder-files/generators"
 )
 
 # Loop para mover cada item para a pasta raiz
