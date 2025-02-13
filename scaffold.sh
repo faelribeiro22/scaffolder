@@ -1,14 +1,18 @@
 #!/bin/bash
 version="1.0"
+
+# Instala dependências do npm
 npm install --save-dev husky @testing-library/react @testing-library/dom @types/react @types/react-dom jest plop
 npm install --save-dev --save-exact prettier
+
+# Clona o repositório com os arquivos de scaffolding
 git clone --depth 1 https://github.com/faelribeiro22/scaffolder-files
 
-# Define os scripts que você deseja adicionar
+# Define os scripts que você deseja adicionar ao package.json
 declare -A scripts=(
   ["test:ci"]="jest --runInBand"
   ["generate"]="npx plop --plopfile generators/plopfile.js"
-  ["prepare"]="webpack --mode production"
+  ["prepare"]="husky"
   ["test:watch"]="jest --watch --maxWorkers=25%"
 )
 
@@ -35,7 +39,6 @@ itens=(
   "scaffolder-files/.prettierignore"
   "scaffolder-files/.prettierrc"
   "scaffolder-files/eslint.config.mjs"
-  "scaffolder-files/eslint.config.mjs"
   "scaffolder-files/generators"
 )
 
@@ -49,21 +52,7 @@ for item in "${itens[@]}"; do
   fi
 done
 
+# Remove a pasta scaffolder-files após mover os arquivos
 rm -rf scaffolder-files
 
 echo "Concluído!"
-
-# echo $(jq '.scripts["test:ci"] = "jest --runInBand"' package.json) | jq . | > package.json
-# echo $(jq '.scripts["generate"]="npx plop --plopfile generators/plopfile.js"') | jq . | > package.json
-# echo $(jq '.scripts["prepare"]="husky"' package.json) | jq . | > package.json
-# echo $(jq '.scripts["test:watch"]="jest --watch --maxWorkers=25%"') | jq . | > package.json
-
-#jq '.scripts["test:ci"] = "jest --runInBand"' package.json | jq . | > package.json
-
-# git clone --depth 1 git@github.com:faelribeiro22/scaffolder-files.git
-
-#git archive --remote=<git@github.com:faelribeiro22/scaffolder-files.git> HEAD:path/to/directory/ filename | tar -t
-
-# git archive --remote=git@github.com:faelribeiro22/scaffolder-files.git | tar -t --exclude="*/*" | grep "/"
-
-setopt clobber
