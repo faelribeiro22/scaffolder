@@ -9,22 +9,25 @@ npm install --save-dev --save-exact prettier
 git clone --depth 1 https://github.com/faelribeiro22/scaffolder-files
 
 # Define os scripts que você deseja adicionar ao package.json
-declare -A scripts=(
-  ["test:ci"]="jest --runInBand"
-  ["generate"]="npx plop --plopfile generators/plopfile.js"
-  ["prepare"]="husky"
-  ["test:watch"]="jest --watch --maxWorkers=25%"
+scripts=(
+  "test:ci jest --runInBand"
+  "generate npx plop --plopfile generators/plopfile.js"
+  "prepare husky install"
+  "test:watch jest --watch --maxWorkers=25%"
 )
 
 # Função para adicionar scripts ao package.json
 add_scripts() {
-  for key in "${!scripts[@]}"; do
+  for script in "${scripts[@]}"; do
+    key=$(echo "$script" | cut -d' ' -f1)
+    value=$(echo "$script" | cut -d' ' -f2-)
+    
     # Verifica se o script já existe
     if jq -e ".scripts[\"$key\"]" package.json > /dev/null; then
       echo "O script '$key' já existe no package.json. Pulando..."
     else
       # Adiciona o script ao package.json
-      jq --arg key "$key" --arg value "${scripts[$key]}" '.scripts[$key] = $value' package.json > temp.json && mv temp.json package.json
+      jq --arg key "$key" --arg value "$value" '.scripts[$key] = $value' package.json > temp.json && mv temp.json package.json
       echo "Script '$key' adicionado com sucesso."
     fi
   done
